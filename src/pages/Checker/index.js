@@ -1,154 +1,63 @@
 import React from 'react';
 import { useState } from 'react';
-import { Grid, Box, Typography, FormControl, TextField, Button, Stack } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import LinearProgress from '@mui/material/LinearProgress';
-import { getResult } from '../../api';
-
-const height = 100;
-const width = 600;
-const labelOffset = -6;
-const CheckButton = styled(Button)(({ theme }) => ({
-    borderRadius: '5px',
-    border: '2px solid #11D9C5',
-    background: '027373',
-    flexShrink: 0,
-    width: '211px',
-    height: '67px',
-}));
+import { Box, Typography, FormControl, TextField, Stack, Select, MenuItem, InputLabel, Button } from '@mui/material';
 
 export const Checker = () => {
-    const [url, setUrl] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const [checked, setChecked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [gender, setGender] = useState(0);
+  const [age, setAge] = useState(0);
+  const [salary, setSalary] = useState('');
 
-    const [isPhishing, setIsPhishing] = useState(null);
-    const handleChange = (event) => {
-        setUrl(event.target.value);
-        setChecked(false);
-        setIsPhishing(null);
-        
-    };
-    const getResultData = async () => {
-         await getResult(url)
-        .then((data) => {
-            if (data) {
-              if (data.result === 'Legit') {
-                setIsPhishing(false);
-              } else {
-                setIsPhishing(true);
-              }
-              setIsLoading(false);
-            }
-          })
-    };
-    
-    const handleClick = () => {
-        setChecked(true);
-        getResultData();
-        setIsLoading(true);
-    };
-    return (
-        <Grid container spacing={2} alignItems={'center'} id="checkerSection">
-            <Grid item xs={6} md={8}>
-                <Box margin="10vh">
-                    <Box sx={{ display: 'flex', marginBottom: '20px' }}>
-                        <Typography variant="h2">Phising URL Checker</Typography>
-                    </Box>
-                    <Typography variant="text" sx={{ lineHeight: '32px' }}>
-                        Our phishing URL checker detects if a URL is malicious or contains a phishing link.
-                    </Typography>
-                    <FormControl>
-                        <TextField
-                            sx={{
-                                marginTop: '30px',
-                                background: 'rgba(237, 242, 244, 0.10)',
-                                borderRadius: '3px',
-                            }}
-                            style={{ height, width }}
-                            InputLabelProps={{
-                                style: {
-                                    height,
-                                    width,
-                                    fontSize: '20px',
-                                    fontWeight: '700',
-                                    lineHeight: 'normal',
-                                    ...{ top: `${labelOffset}px` },
-                                },
-                            }}
-                            inputProps={{
-                                style: {
-                                    height,
-                                    width,
-                                    padding: '0 14px',
-                                },
-                            }}
-                            size="large"
-                            label="URL"
-                            value={url}
-                            onChange={handleChange}
-                        ></TextField>
-                        {checked ? 
-                            url && isLoading?
-                            <Stack sx={{ width: '100%', marginTop: "20px"}} spacing={2}>
-                            <LinearProgress 
-                            sx={{
-                              backgroundColor: 'white',
-                              '& .MuiLinearProgress-bar': {
-                                backgroundColor: '#11D9C5'
-                              }
-                            }}
-                          />
-                         </Stack>      
-                             :(
-                            isPhishing === true && url && !isLoading? (
-                                <Typography
-                                    style={{
-                                        marginTop: '15px',
-                                        textTransform: 'none',
-                                        color: '#FFF',
-                                        fontWeight: 500,
-                                        fontStyle: 'italic',
-                                        fontSize: 20,
-                                    }}
-                                >
-                                    This URL has been identified as a <span style={{ color: '#FF6161' }}>PHISHING</span>{' '}
-                                    attack.
-                                </Typography>
-                            ) : url && isPhishing === false && !isLoading? (
-                                <Typography
-                                    style={{
-                                        marginTop: '15px',
-                                        textTransform: 'none',
-                                        color: '#FFF',
-                                        fontWeight: 500,
-                                        fontStyle: 'italic',
-                                        fontSize: 20,
-                                    }}
-                                >
-                                    This URL is <span style={{ color: '#11D9C5' }}>SAFE</span>!
-                                </Typography>
-                            ) : (
-                                <></>
-                            )
-                        ) : (
-                            <></>
-                        )}
-                        <CheckButton type="submit" sx={{ marginTop: '30px' }} onClick={handleClick}>
-                            <Typography
-                                style={{
-                                    textTransform: 'none',
-                                    color: '#FFF',
-                                    fontWeight: 700,
-                                    fontSize: 20,
-                                }}
-                            >
-                                CHECK
-                            </Typography>
-                        </CheckButton>
-                    </FormControl>
-                </Box>
-            </Grid>
-        </Grid>
-    );
+  const handleChangeAge = (e) => setAge(e.target.value);
+  const handleChangeGender = (e) => setGender(e.target.value);
+  const handleChangeSalary = (e) => setSalary(e.target.value);
+
+  const handleSubmit = () => console.log(gender, age, salary);
+
+  const onSubmit = () => {
+    setIsLoading(true);
+    handleSubmit();
+    setIsLoading(false);
+  };
+
+  return (
+    <Stack id="checkerSection">
+      <Box margin="10vh">
+        <Box sx={{ display: 'flex', marginBottom: '20px' }}>
+          <Typography variant="h2" fontWeight="bold">
+            Consumer Behaviour Predict
+          </Typography>
+        </Box>
+        <Stack gap={2}>
+          <Typography variant="text" sx={{ lineHeight: '32px' }}>
+            ...
+          </Typography>
+          <FormControl sx={{ width: '600px' }}>
+            <Stack gap={2}>
+              <Stack>
+                <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={gender}
+                  label="Gender"
+                  onChange={handleChangeGender}
+                >
+                  <MenuItem value={0}>Male</MenuItem>
+                  <MenuItem value={1}>Female</MenuItem>
+                </Select>
+              </Stack>
+              <TextField label="Age" variant="outlined" value={age} onChange={handleChangeAge} type="number" />
+              <TextField label="Salary" variant="outlined" value={salary} onChange={handleChangeSalary} />
+            </Stack>
+            <Stack py={2}>
+              <Button disabled={isLoading} variant="contained" onClick={onSubmit}>
+                Submit
+              </Button>
+            </Stack>
+          </FormControl>
+        </Stack>
+      </Box>
+    </Stack>
+  );
 };
