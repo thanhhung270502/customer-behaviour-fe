@@ -26,7 +26,7 @@ export const Introduction = () => {
         <Stack margin="10vh" gap={2}>
           <Stack flexDirection="row" mb={3}>
             <Typography variant="h2" fontWeight="bold">
-              Consumer Behaviour
+              Naïve Bayes Classification : Spam Email Detection
             </Typography>
             <AccessAlarmIcon sx={{ color: '#11D9C5', fontSize: '4.125rem', marginLeft: '10px' }} />
           </Stack>
@@ -35,8 +35,8 @@ export const Introduction = () => {
               Context:
             </Typography>
             <Typography variant="body1">
-              The file has been used in order to apply different machine learning algorithms and to compare different
-              results, taking as an example the Udemy Machine Learning courses files.
+              The file has been used to apply different machine learning algorithms and compare their performance, using
+              spam email detection as the primary use case.
             </Typography>
           </Stack>
           <Stack gap={1} pb={2}>
@@ -44,23 +44,23 @@ export const Introduction = () => {
               Content:
             </Typography>
             <Typography variant="body1">
-              The data represents details about 400 clients of a company including the unique ID, the gender, the age of
-              the customer and the salary. Besides this, we have collected information regarding the buying decision -
-              whether the customer decided to buy specific products or not.
+              The data represents details about email communications, including unique identifiers, email content
+              characteristics, and sender information. Additionally, it includes the classification of whether the email
+              was marked as spam or not spam.
             </Typography>
             <Stack pl={2} borderLeft="2px solid #fff">
               <Stack flexDirection="row" gap={1}>
                 target ={' '}
                 <Box component="span" fontWeight="bold">
-                  Purchased
+                  Spam
                 </Box>
               </Stack>
-              <Stack flexDirection="row" gap={1}>
+              {/* <Stack flexDirection="row" gap={1}>
                 features =
                 <Box component="span" fontWeight="bold">
                   User ID, Gender, Age, EstimatedSalary
                 </Box>
-              </Stack>
+              </Stack> */}
             </Stack>
           </Stack>
           <ScrollLink to="checkerSection" smooth={true} duration={600}>
